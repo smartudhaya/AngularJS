@@ -1,0 +1,20 @@
+<div ng-controller="ViewCtrlr">
+	<table id="StudTable">
+		<tr>
+			<th>S.No</th>
+			<th>First name</th>
+			<th>Last name</th>
+			<th>Email</th>
+			<th>University name</th>
+			<th>Course</th>
+		</tr>
+		<tr ng-repeat="stud in StudentsData">
+			<td>{{ $index + 1 }}</td>
+			<td>{{ stud.fname }}</td>
+			<td>{{ stud.lname }}</td>
+			<td>{{ stud.email }}</td>
+			<td>{{ stud.univ }}</td>
+			<td>{{ stud.course }}</td>
+		</tr>
+	</table>
+</div>

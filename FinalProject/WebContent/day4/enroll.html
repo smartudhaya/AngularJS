@@ -1,0 +1,30 @@
+<div ng-controller="SaveCtrlr">
+	<form ng-submit="saveUser(fname, lname, email, univ, course)">
+		<table ID="EnrollTable">
+			<tr>
+				<td>Firstname:</td>
+				<td><input type="text" ng-model="fname" required /></td>
+			</tr>
+			<tr>
+				<td>Lastname:</td>
+				<td><input type="text" ng-model="lname" required /></td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td><input type="email" ng-model="email" required /></td>
+			</tr>
+			<tr>
+				<td>University:</td>
+				<td><input type="text" ng-model="univ" required /></td>
+			</tr>
+			<tr>
+				<td>Select Course:</td>
+				<td><input type="text" ng-model="course" required /></td>
+			</tr>
+			<tr>
+				<td><input type="submit" /></td>
+			</tr>
+		</table>
+		</p>
+	</form>
+</div>

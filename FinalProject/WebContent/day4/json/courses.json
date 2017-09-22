@@ -1,0 +1,36 @@
+{
+	"Courses": [
+		{	
+			"CourseIndex": 101,
+			"CourseName": "Aeronautical engineering"
+		},
+		{	
+			"CourseIndex": 102,
+			"CourseName": "Biotechnology engineering"
+		},
+		{	
+			"CourseIndex": 103,
+			"CourseName": "Computer Science & engineering"
+		},
+		{	
+			"CourseIndex": 104,
+			"CourseName": "Electrical & Electronics engineering"
+		},
+		{	
+			"CourseIndex": 105,
+			"CourseName": "Electronic Communication engineering"
+		},
+		{	
+			"CourseIndex": 106,
+			"CourseName": "Mechanical engineering"
+		},
+		{	
+			"CourseIndex": 107,
+			"CourseName": "Civil engineering"
+		},
+		{	
+			"CourseIndex": 108,
+			"CourseName": "Informaion Technology"
+		}
+	]						
+}

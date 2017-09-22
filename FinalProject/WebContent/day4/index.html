@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Database System</title>
+<link href="css/reset.css" rel="stylesheet" type="text/css">
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+<script type="text/javascript">
+var app = angular.module('myApp', ["ngRoute"]);
+
+app.controller('IndexCtrlr', function($scope, $http) {
+    $http.get("json/home.json").then(function(response) {    	
+        $scope.myData = response.data.Info;
+    });
+    $http.get("json/courses.json").then(function(response) {    	
+        $scope.courseArray = response.data.Courses;
+        $scope.noOfCourses = $scope.courseArray.length;
+    });  
+});
+
+app.controller('SaveCtrlr', function($scope, $http) {
+ 	$scope.saveUser = function(fname, lname, email, univ, course){
+ 		var jsonData = {
+ 				"fname" : fname,
+ 				"lname" : lname,
+ 				"email" : email,
+ 				"univ" : univ,
+ 				"course" : course
+ 		}
+ 		//alert(JSON.stringify(jsonData)); 		
+ 		$http.post('jsp/saveuser.jsp',JSON.stringify(jsonData)).then(function (response) {
+ 					alert("Saved !")
+ 				}, function (response) {
+						alert("Error Code: "+ response.status+ " Error Desc: " + response.statusText);
+ 				}); 
+ 			$scope.fname = "";
+			$scope.lname = "";
+			$scope.email ="";
+			$scope.univ ="";
+			$scope.course ="";
+ 		}
+});
+
+
+app.controller('ViewCtrlr', function($scope, $http) {
+    $http.get("jsp/getstudents.jsp").then(function(response) {    	
+        $scope.StudentsData = response.data.Students;
+    }); 
+});
+
+app.service('CourseService', function(){
+    this.getNoOfCourses = function(coursesArr) {
+    	var json = [1,2,3];
+       return json.length;
+    }
+ });
+
+app.directive("footerMsg", function() {
+    return {
+        restrict : "AE",
+        template : "<p>Happy Learning !</p>",
+        link: function ($scope, element, attrs) {
+        		element.css({
+        	       cursor: 'pointer'
+        	      });
+        		element.bind('click', function () {
+        			alert("You clicked me !");
+        		}); 
+             }
+    };
+});
+
+app.config(function($routeProvider) {
+    $routeProvider
+    .when("/", {
+        templateUrl : "main.html"
+    })
+    .when("/enroll", {
+        templateUrl : "enroll.html"
+    })
+    .when("/view", {
+        templateUrl : "view.html"
+    })
+    .when("/contact", {
+        templateUrl : "contact.html"
+    });
+});
+</script>
+</head>
+<body ng-app="myApp" ng-controller="IndexCtrlr">
+	<div id="wrapper">
+		<header>
+			<div id="logo">
+				<img src="img/logo.svg" width="394" height="146">
+			</div>
+			<nav>
+				<ul>
+					<li class="highlight"><a href="#/!">Home</a></li>
+					<li><a href="#!enroll">Enroll</a></li>
+					<li><a href="#!view">View</a></li>
+					<li><a href="#!contact">Contact</a></li>
+				</ul>
+			</nav>
+		</header>
+		<div id="content">
+			<div ng-view></div>		
+		</div>
+		<!-- /end #content-->
+
+		<div id="rightcol">
+			<aside>				
+				<h2>Courses</h2> <br>
+				<input type="text" ng-model="courseKey.$" placeholder="Search Course"/>
+				<p id="courseCssID" ng-repeat="course in courseArray | filter : courseKey">
+					<strong>{{ course.CourseIndex }}</strong>
+					<span> {{ course.CourseName }} </span>
+				</p><br/>
+				<p>No of Courses served: {{ noOfCourses }}</p> 
+			</aside>
+		</div>
+		<!-- /end #rightcol-->
+		<footer>
+			<footer-msg></footer-msg>
+		</footer>
+	</div>
+	<!-- /end #wrapper-->
+</body>
+</html>
